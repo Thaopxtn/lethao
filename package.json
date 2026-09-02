@@ -1,0 +1,26 @@
+{
+  "name": "haoqi-2026-clone",
+  "version": "1.0.0",
+  "description": "Full clone of HAOQI©2026 with 3D Three.js, shaders, particle physics, Lenis smooth scroll, and interactive animations",
+  "main": "server.mjs",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs"
+  },
+  "keywords": [
+    "threejs",
+    "webgl",
+    "glsl",
+    "shaders",
+    "lenis",
+    "animation",
+    "portfolio-clone"
+  ],
+  "author": "Antigravity Pair Programmer",
+  "license": "MIT",
+  "dependencies": {
+    "opentype.js": "^2.0.0",
+    "three": "^0.185.1"
+  }
+}
