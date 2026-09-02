@@ -4,6 +4,10 @@
   "cleanUrls": true,
   "routes": [
     {
+      "src": "^/lethao/(.*)$",
+      "dest": "/$1"
+    },
+    {
       "handle": "filesystem"
     },
     {
