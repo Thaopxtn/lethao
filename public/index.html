@@ -8,27 +8,31 @@
       // Intercept fetch
       var origFetch = window.fetch;
       window.fetch = function(input, init) {
-        if (typeof input === 'string') {
-          if (input.startsWith('https://thaopxtn.github.io/') && !input.startsWith('https://thaopxtn.github.io/lethao/')) {
-            input = input.replace('https://thaopxtn.github.io/', 'https://thaopxtn.github.io/lethao/');
-          } else if (input.startsWith('http://localhost:3008/') && !input.startsWith('http://localhost:3008/lethao/')) {
-            input = input.replace('http://localhost:3008/', 'http://localhost:3008/lethao/');
-          } else if (input.startsWith('/') && !input.startsWith('/lethao/')) {
-            input = '/lethao' + input;
-          }
-        } else if (input && input.url && typeof input.url === 'string') {
-          var u = input.url;
+        var u = typeof input === 'string' ? input : (input && input.href ? input.href : (input && input.url ? input.url : null));
+        if (u) {
           if (u.startsWith('https://thaopxtn.github.io/') && !u.startsWith('https://thaopxtn.github.io/lethao/')) {
-            input = new Request(u.replace('https://thaopxtn.github.io/', 'https://thaopxtn.github.io/lethao/'), input);
+            u = u.replace('https://thaopxtn.github.io/', 'https://thaopxtn.github.io/lethao/');
           } else if (u.startsWith('http://localhost:3008/') && !u.startsWith('http://localhost:3008/lethao/')) {
-            input = new Request(u.replace('http://localhost:3008/', 'http://localhost:3008/lethao/'), input);
+            u = u.replace('http://localhost:3008/', 'http://localhost:3008/lethao/');
           } else if (u.startsWith('/') && !u.startsWith('/lethao/')) {
-            input = new Request('/lethao' + u, input);
+            u = '/lethao' + u;
+          }
+
+          if (u.indexOf('_rsc') !== -1) {
+            return Promise.resolve(new Response('', {
+              status: 200,
+              headers: { 'Content-Type': 'text/x-component' }
+            }));
+          }
+
+          if (input instanceof Request) {
+            input = new Request(u, input);
+          } else {
+            input = u;
           }
         }
         return origFetch.call(this, input, init);
       };
-
       // Intercept XMLHttpRequest
       var origOpen = XMLHttpRequest.prototype.open;
       XMLHttpRequest.prototype.open = function(method, url) {
