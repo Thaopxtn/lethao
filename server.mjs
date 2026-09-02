@@ -55,9 +55,13 @@ const server = http.createServer((req, res) => {
   }
 
   let reqPath = decodeURI(req.url.split('?')[0]);
+  if (reqPath.startsWith('/lethao')) {
+    reqPath = reqPath.slice('/lethao'.length);
+  }
   if (reqPath === '/' || reqPath === '') {
     reqPath = '/index.html';
   }
+
 
   let filePath = path.join(PUBLIC_DIR, reqPath);
 
