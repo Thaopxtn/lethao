@@ -8,10 +8,23 @@
       // Intercept fetch
       var origFetch = window.fetch;
       window.fetch = function(input, init) {
-        if (typeof input === 'string' && input.startsWith('/') && !input.startsWith('/lethao/')) {
-          input = '/lethao' + input;
-        } else if (input && input.url && typeof input.url === 'string' && input.url.startsWith('/') && !input.url.startsWith('/lethao/')) {
-          input = new Request('/lethao' + input.url, input);
+        if (typeof input === 'string') {
+          if (input.startsWith('https://thaopxtn.github.io/') && !input.startsWith('https://thaopxtn.github.io/lethao/')) {
+            input = input.replace('https://thaopxtn.github.io/', 'https://thaopxtn.github.io/lethao/');
+          } else if (input.startsWith('http://localhost:3008/') && !input.startsWith('http://localhost:3008/lethao/')) {
+            input = input.replace('http://localhost:3008/', 'http://localhost:3008/lethao/');
+          } else if (input.startsWith('/') && !input.startsWith('/lethao/')) {
+            input = '/lethao' + input;
+          }
+        } else if (input && input.url && typeof input.url === 'string') {
+          var u = input.url;
+          if (u.startsWith('https://thaopxtn.github.io/') && !u.startsWith('https://thaopxtn.github.io/lethao/')) {
+            input = new Request(u.replace('https://thaopxtn.github.io/', 'https://thaopxtn.github.io/lethao/'), input);
+          } else if (u.startsWith('http://localhost:3008/') && !u.startsWith('http://localhost:3008/lethao/')) {
+            input = new Request(u.replace('http://localhost:3008/', 'http://localhost:3008/lethao/'), input);
+          } else if (u.startsWith('/') && !u.startsWith('/lethao/')) {
+            input = new Request('/lethao' + u, input);
+          }
         }
         return origFetch.call(this, input, init);
       };
