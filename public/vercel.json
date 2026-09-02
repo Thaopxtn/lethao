@@ -1,9 +1,10 @@
 {
   "version": 2,
+  "outputDirectory": "public",
   "cleanUrls": true,
   "routes": [
     {
-      "src": "^/lethao/(.*)$",
+      "src": "^/lethao/?(.*)$",
       "dest": "/$1"
     },
     {
