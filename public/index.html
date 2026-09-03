@@ -1,4 +1,26 @@
-<!DOCTYPE html><html lang="en" class="dark"><head><style>html,body{background-color:#121212;color:#f4f4f5;margin:0;padding:0;}</style>
+<!DOCTYPE html><html lang="en" class="dark"><head><style>
+  html, body { margin: 0; padding: 0; }
+  html.dark, html.dark body {
+    background-color: #0f1111;
+    color: #ffffff;
+  }
+  html.light, html.light body,
+  html:not(.dark), html:not(.dark) body {
+    background-color: #fbfaf4;
+    color: #000000;
+  }
+  html.light, html:not(.dark) {
+    --label: 0, 0, 0;
+    --label-d: 54, 54, 48;
+    --label-1: rgba(0, 0, 0, 1);
+    --label-2: rgba(54, 54, 48, 0.7);
+    --label-3: rgba(54, 54, 48, 0.4);
+    --color-l1: rgba(0, 0, 0, 1);
+    --color-l2: rgba(54, 54, 48, 0.7);
+    --color-l3: rgba(54, 54, 48, 0.4);
+    --color-white: #000000;
+  }
+</style>
 <script>
   (function() {
     var isGh = window.location.pathname.startsWith('/lethao');
